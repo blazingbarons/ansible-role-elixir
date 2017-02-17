@@ -1,0 +1,17 @@
+---
+- name: install apt-transport-https
+  apt: pkg=apt-transport-https state=present
+
+- name: add erlang solutions repo
+  apt_repository: repo='deb https://packages.erlang-solutions.com/debian jessie contrib'
+
+- name: add erlang solutions repo key
+  apt_key: url=https://packages.erlang-solutions.com/debian/erlang_solutions.asc
+
+- name: install elixir packages
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - build-essential
+    - erlang
+    - erlang-dev
+    - elixir
